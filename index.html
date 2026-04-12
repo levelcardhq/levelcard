@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEVEL</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+      .trusted-bar{background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.07);padding:16px 0;overflow:hidden;}
+      .trusted-inner{display:flex;align-items:center;gap:40px;white-space:nowrap;animation:marquee 22s linear infinite;}
+      @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+      .trusted-company{color:rgba(255,255,255,0.5);font-size:13px;font-weight:500;flex-shrink:0;}
+      .trusted-dot{color:rgba(255,255,255,0.15);flex-shrink:0;}
+      #contact{scroll-margin-top:80px;}
+      .contact-input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:14px 16px;color:#fff;font-size:15px;font-family:'Work Sans',sans-serif;outline:none;-webkit-appearance:none;box-sizing:border-box;}
+      .contact-input:focus{border-color:#5C1FF0;}
+      .contact-input::placeholder{color:rgba(255,255,255,0.3);}
+      .btn-signin{background:transparent;border:1px solid rgba(255,255,255,0.22);color:#fff;border-radius:30px;padding:8px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Work Sans',sans-serif;transition:all .2s;text-decoration:none;}
+      .btn-signin:hover{border-color:rgba(255,255,255,0.45);background:rgba(255,255,255,0.05);}
+      .btn-signup-hdr{background:#5C1FF0;color:#fff;border:none;border-radius:30px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Work Sans',sans-serif;transition:background .2s;}
+      .btn-signup-hdr:hover{background:#4c10d4;}
+      .user-pill{display:none;align-items:center;gap:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:5px 14px 5px 5px;cursor:pointer;position:relative;}
+      .user-pill.show{display:flex;}
+      .u-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;}
+      .u-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+      .u-name{font-size:13px;font-weight:500;color:#fff;}
+      .u-dropdown{position:absolute;top:calc(100% + 10px);right:0;background:#fff;border-radius:12px;min-width:200px;box-shadow:0 8px 32px rgba(0,0,0,0.22);overflow:hidden;z-index:300;display:none;}
+      .u-dropdown.open{display:block;}
+      .u-drop-head{padding:14px 16px;border-bottom:1px solid #f3f4f6;}
+      .u-drop-name{font-size:14px;font-weight:600;color:#111827;}
+      .u-drop-email{font-size:12px;color:#6b7280;margin-top:2px;}
+      .u-drop-item{display:flex;align-items:center;gap:10px;padding:11px 16px;color:#374151;font-size:13px;text-decoration:none;cursor:pointer;border:none;background:none;width:100%;font-family:'Work Sans',sans-serif;}
+      .u-drop-item:hover{background:#f9fafb;}
+      .u-drop-item.danger{color:#ef4444;}
+      .u-drop-item.danger:hover{background:#fef2f2;}
+      .auth-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.84);align-items:center;justify-content:center;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+      .auth-overlay.open{display:flex;}
+      .auth-box{position:relative;background:#fff;border-radius:20px;overflow:hidden;width:100%;max-width:440px;margin:20px;box-shadow:0 32px 80px rgba(0,0,0,0.5);animation:boxIn .25s ease;}
+      @keyframes boxIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+      .auth-head{background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:30px 28px 24px;text-align:center;position:relative;}
+      .auth-head h2{color:#fff;font-size:1.25rem;font-weight:700;font-family:'Work Sans',sans-serif;}
+      .auth-head p{color:rgba(255,255,255,0.75);font-size:13px;margin-top:5px;}
+      .auth-close{position:absolute;top:13px;right:13px;background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+      .auth-body{padding:28px;}
+      .or-divider{display:flex;align-items:center;gap:12px;margin:22px 0;color:#9ca3af;font-size:12px;}
+      .or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:#e5e7eb;}
+      .f-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#6b7280;margin-bottom:5px;letter-spacing:0.06em;}
+      .f-input{width:100%;border:1.5px solid #e5e7eb;border-radius:9px;padding:12px 14px;font-size:15px;color:#1f2937;outline:none;font-family:'Work Sans',sans-serif;-webkit-appearance:none;box-sizing:border-box;transition:border-color .2s;margin-bottom:14px;}
+      .f-input:focus{border-color:#5C1FF0;}
+      .btn-auth-submit{width:100%;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Work Sans',sans-serif;margin-top:4px;transition:opacity .2s;}
+      .btn-auth-submit:hover{opacity:.9;}
+      .auth-error{display:none;background:#fef2f2;border:1px solid #fee2e2;border-radius:8px;padding:10px 13px;font-size:13px;color:#ef4444;margin-bottom:12px;line-height:1.5;}
+      .auth-error.show{display:block;}
+      .auth-success{display:none;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 13px;font-size:13px;color:#15803d;margin-bottom:12px;}
+      .auth-success.show{display:block;}
+      .auth-switch{text-align:center;margin-top:18px;font-size:13px;color:#6b7280;}
+      .auth-switch a{color:#5C1FF0;cursor:pointer;font-weight:600;}
+
+      /* Apply Section */
+      .apply-section{background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:60px 24px;text-align:center;}
+      .apply-section h2{color:#fff;font-size:clamp(24px,3vw,36px);font-weight:800;margin-bottom:12px;}
+      .apply-section p{color:rgba(255,255,255,0.85);font-size:16px;max-width:520px;margin:0 auto 28px;line-height:1.7;}
+      .btn-apply{background:#fff;color:#5C1FF0;font-weight:700;border:none;border-radius:30px;padding:16px 48px;font-size:16px;cursor:pointer;font-family:'Work Sans',sans-serif;transition:opacity .2s;}
+      .btn-apply:hover{opacity:.9;}
+      .apply-note{color:rgba(255,255,255,0.6);font-size:12px;margin-top:14px;}
+    </style>
+</head>
+<body>
+
+  <!-- WAITLIST MODAL -->
+  <div id="emailModal" style="display:none;position:fixed;z-index:9998;top:0;left:0;right:0;bottom:0;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+    <div style="display:flex;align-items:center;justify-content:center;min-height:100%;padding:16px;box-sizing:border-box;">
+      <div id="modalBackdrop" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.82);"></div>
+      <div style="position:relative;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.4);width:100%;max-width:480px;z-index:1;">
+        <div style="background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:28px 24px 22px;position:relative;">
+          <button id="closeModalButton" style="position:absolute;top:14px;right:14px;background:none;border:none;color:#fff;cursor:pointer;padding:6px;" aria-label="Close">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+          <h3 style="color:#fff;font-size:1.15rem;font-weight:700;font-family:'Work Sans',sans-serif;">Join the Waitlist</h3>
+          <p style="color:#d8b4fe;font-size:13px;margin-top:4px;">Be among the first to experience Level.</p>
+        </div>
+        <div id="modalFormWrap" style="padding:22px 24px;">
+          <form id="waitlistForm" novalidate>
+            <div style="margin-bottom:14px;"><label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#6b7280;margin-bottom:5px;letter-spacing:0.06em;">Full Name</label><input type="text" name="name" style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;font-size:15px;color:#1f2937;outline:none;font-family:'Work Sans',sans-serif;-webkit-appearance:none;box-sizing:border-box;" placeholder="John Doe" required></div>
+            <div style="margin-bottom:14px;"><label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#6b7280;margin-bottom:5px;letter-spacing:0.06em;">Company Name</label><input type="text" name="company" style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;font-size:15px;color:#1f2937;outline:none;font-family:'Work Sans',sans-serif;-webkit-appearance:none;box-sizing:border-box;" placeholder="Acme Inc." required></div>
+            <div style="margin-bottom:14px;"><label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#6b7280;margin-bottom:5px;letter-spacing:0.06em;">Email Address</label><input type="email" name="email" style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;font-size:15px;color:#1f2937;outline:none;font-family:'Work Sans',sans-serif;-webkit-appearance:none;box-sizing:border-box;" placeholder="you@company.com" required></div>
+            <div style="margin-bottom:18px;"><label style="display:block;font-size:11px;font-weight:600;text-transform:uppercase;color:#6b7280;margin-bottom:5px;letter-spacing:0.06em;">Phone Number</label><input type="tel" name="phone" style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;font-size:15px;color:#1f2937;outline:none;font-family:'Work Sans',sans-serif;-webkit-appearance:none;box-sizing:border-box;" placeholder="+1 (555) 000-0000" required></div>
+            <div id="formError" style="display:none;color:#ef4444;font-size:13px;margin-bottom:10px;"></div>
+            <button type="submit" id="modalSubmitBtn" style="width:100%;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);color:#fff;font-weight:600;font-size:15px;padding:14px;border:none;border-radius:10px;cursor:pointer;font-family:'Work Sans',sans-serif;">
+              <span id="submitBtnText">Join Waitlist</span><span id="submitBtnLoader" style="display:none;">Submitting…</span>
+            </button>
+          </form>
+        </div>
+        <div id="modalSuccess" style="display:none;padding:48px 24px;text-align:center;">
+          <div style="width:56px;height:56px;border-radius:50%;background:#EDE9FE;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
+            <svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="#5C1FF0"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <h4 style="color:#1f2937;font-size:1.15rem;font-weight:700;font-family:'Work Sans',sans-serif;">You're on the list!</h4>
+          <p style="margin-top:8px;font-size:14px;color:#6b7280;">Thanks for signing up. We'll be in touch soon.</p>
+          <button id="modalSuccessClose" style="background:#5C1FF0;color:#fff;font-weight:600;border:none;border-radius:30px;padding:10px 32px;margin-top:22px;cursor:pointer;font-family:'Work Sans',sans-serif;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-box">
+      <div class="auth-head">
+        <button class="auth-close" id="authClose" aria-label="Close">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <h2 id="authTitle">Sign in to Level</h2>
+        <p id="authSubtitle">Access your Level account and dashboard</p>
+      </div>
+      <div class="auth-body">
+        <div id="authError" class="auth-error"></div>
+        <div id="authSuccess" class="auth-success"></div>
+        <div id="nameRow" style="display:none;">
+          <label class="f-label">Full Name</label>
+          <input class="f-input" id="authName" type="text" placeholder="Your name" autocomplete="name">
+        </div>
+        <label class="f-label">Email</label>
+        <input class="f-input" id="authEmail" type="email" placeholder="you@company.com" autocomplete="email">
+        <label class="f-label">Password</label>
+        <input class="f-input" id="authPass" type="password" placeholder="••••••••" autocomplete="current-password" style="margin-bottom:0;">
+        <button class="btn-auth-submit" id="authSubmitBtn" onclick="handleEmailAuth()">Sign In</button>
+        <div class="auth-switch" id="authSwitch">
+          Don't have an account? <a onclick="switchAuthMode()">Sign up free</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+	<header class="bg-header wow fadeInDown">
+		<div class="flex items-center justify-between p-4 container mx-auto">
+		    <div class="flex items-center gap-2">
+		        <img src="assets/images/logo.svg" alt="Logo" class="h-10">
+		        <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#fff;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:2px 8px;border-radius:999px;text-transform:uppercase;opacity:0.92;font-family:'Work Sans',sans-serif;">Beta</span>
+		    </div>
+		    <nav class="hidden md:flex space-x-8" style="align-items:center;">
+		        <div style="position:relative;" id="products-nav-wrap">
+			        <button id="products-nav-btn" class="text-gray font-normal focus:outline-none" style="display:flex;align-items:center;gap:4px;cursor:pointer;background:none;border:none;">Products <svg style="width:12px;height:12px;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button>
+			        <div id="products-nav-menu" style="display:none;position:absolute;top:calc(100% + 10px);left:0;min-width:200px;background:#fff;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.18);overflow:hidden;z-index:200;">
+			            <a href="level-grant.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Grant</a>
+			            <a href="level-loan.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Loan</a>
+			            <a href="level-giftcard.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Gift Card</a>
+			            <a href="levelpay.html" style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">LevelPay <span style="font-size:10px;background:#e0e7ff;color:#4F46E5;padding:2px 7px;border-radius:999px;font-weight:600;">Soon</span></a>
+			            <a href="level-black.html" style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;border-top:1px solid #f3f4f6;" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background=''">Level Black <span style="font-size:10px;background:#111827;color:#fff;padding:2px 7px;border-radius:999px;font-weight:600;">Invite Only</span></a>
+			        </div>
+			    </div>
+		        <a href="global.html" class="text-gray font-normal">Global</a>
+		        <a href="startups.html" class="text-gray font-normal">Startups</a>
+		        <a href="about.html" class="text-gray font-normal">About Us</a>
+		        <a href="#" class="text-gray font-normal">FAQs</a>
+		    </nav>
+		    <div id="authBtns" style="display:flex;align-items:center;gap:8px;">
+		      <button class="btn-signin" onclick="openAuth('signin')">Sign In</button>
+		      <button class="btn-signup-hdr" onclick="openAuth('signup')">Sign Up</button>
+		    </div>
+		    <div style="position:relative;" id="userWrap">
+		      <div class="user-pill" id="userPill" onclick="toggleUserDrop()">
+		        <div class="u-avatar" id="uAvatar"><span id="uInitial"></span></div>
+		        <span class="u-name" id="uName"></span>
+		        <svg style="width:11px;height:11px;color:rgba(255,255,255,.45);flex-shrink:0;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+		        <div class="u-dropdown" id="uDrop" onclick="event.stopPropagation()">
+		          <div class="u-drop-head">
+		            <div class="u-drop-name" id="uDropName"></div>
+		            <div class="u-drop-email" id="uDropEmail"></div>
+		          </div>
+		          <a href="dashboard.html" class="u-drop-item">
+		            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+		            Dashboard
+		          </a>
+		          <button class="u-drop-item danger" onclick="signOut()">
+		            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg>
+		            Sign Out
+		          </button>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="md:hidden">
+		        <button id="mobile-menu-button" class="text-white focus:outline-none">
+		            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+		        </button>
+		    </div>
+		    <div id="mobile-menu" class="md:hidden hidden">
+		        <div class="flex flex-col space-y-2">
+		            <a href="level-grant.html" class="text-gray font-normal">Level Grant</a>
+		            <a href="level-loan.html" class="text-gray font-normal">Level Loan</a>
+		            <a href="level-giftcard.html" class="text-gray font-normal">Level Gift Card</a>
+		            <a href="levelpay.html" class="text-gray font-normal">LevelPay</a>
+		            <a href="level-black.html" class="text-gray font-normal">Level Black</a>
+		            <a href="global.html" class="text-gray font-normal">Global</a>
+		            <a href="startups.html" class="text-gray font-normal">Startups</a>
+		            <a href="about.html" class="text-gray font-normal">About Us</a>
+		            <a href="#" class="text-gray font-normal">FAQs</a>
+		            <hr style="border-color:rgba(255,255,255,0.1);">
+		            <a class="text-gray font-normal" style="cursor:pointer;" onclick="openAuth('signin')">Sign In</a>
+		            <a class="text-gray font-normal" style="cursor:pointer;" onclick="openAuth('signup')">Sign Up</a>
+		        </div>
+		    </div>
+		</div>
+	</header>
+
+	<!-- BANNER -->
+	<div class="banner">
+		<div class="container mx-auto px-4">
+			<div class="flex HOME justify-center gap-4 pt-24 pb-24" style="align-items:stretch;">
+				<div class="banner-box w-50 wow fadeInLeft">
+					<h1 class="text-white font-bold lg:text-5xl eudoxus">Control your <span class="text-gradient">finances</span> with level.</h1>
+					<p class="text-white font-18 font-400 mt-4 mb-4">Safeguard and simplify your payments with cutting-edge virtual card solutions</p>
+					<button id="bannerWaitlistBtn" class="font-normal text-white bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded" style="cursor:pointer;border:none;">Join Waitlist</button>
+					<div class="apps flex justify-start gap-3 mt-4">
+						<a href="#" class="d-inline"><img src="assets/images/play.svg"></a>
+						<a href="#" class="d-inline"><img src="assets/images/apple.svg"></a>
+					</div>
+				</div>
+				<div class="content-images relative w-50">
+					<img src="assets/images/card1.svg" class="card-img card1 wow fadeInDown">
+					<img src="assets/images/card2.svg" class="card-img card2 wow fadeInLeft">
+					<img src="assets/images/card3.svg" class="card-img card3 wow fadeInRight">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- TRUSTED -->
+	<div class="trusted-bar">
+		<div style="max-width:1120px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:20px;overflow:hidden;">
+			<span style="color:rgba(255,255,255,0.35);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;flex-shrink:0;">TRUSTED BY COMPANIES LIKE</span>
+			<div class="trusted-inner">
+				<span class="trusted-company">New Life Records</span><span class="trusted-dot">·</span>
+				<span class="trusted-company">Showout Productions</span><span class="trusted-dot">·</span>
+				<span class="trusted-company">Eternal Health</span><span class="trusted-dot">·</span>
+				<span class="trusted-company">Best Food Inc</span><span class="trusted-dot">·</span>
+				<span class="trusted-company">New Life Records</span><span class="trusted-dot">·</span>
+				<span class="trusted-company">Showout Productions</span><span class="trusted-dot">·</span>
+				<span class="trusted-company">Eternal Health</span><span class="trusted-dot">·</span>
+				<span class="trusted-company">Best Food Inc</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- FEATURES -->
+	<div class="pt-12 pb-12 wow fadeInUp">
+	   	<div class="container mx-auto">
+	        <div class="newsletter w-10/12 mx-auto">
+				<div class="heading text-center">
+				   	<h1 class="text-white font-bold lg:text-4xl eudoxus">All in one for all your payment needs</h1>
+				   	<p class="text-gray font-18 font-normal mt-2">Enjoy seamless transactions and effortless management of your finances via a comprehensive payment solution.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pb-12 container mx-auto wow fadeInUp">
+		<div class="flex flex-wrap justify-center gap-4" style="align-items:stretch;">
+			<div class="content-box w-33"><div><img src="assets/images/icon.svg"><p class="text-white font-medium text-base md:text-lg lg:text-2xl mt-3 mb-3">Virtual/Physical Card</p><p class="text-gray font-18 font-400 mt-2">Access to virtual cards and physical cards to make payments anywhere in the world.</p></div></div>
+			<div class="content-box w-33"><div><img src="assets/images/icon.svg"><p class="text-white font-medium text-base md:text-lg lg:text-2xl mt-3 mb-3">Global Corporate Card</p><p class="text-gray font-18 font-400 mt-2">With just $1.00 in your business bank account, get a global corporate card to elevate your company's financial management.</p></div></div>
+			<div class="content-box w-33"><div><img src="assets/images/icon.svg"><p class="text-white font-medium text-base md:text-lg lg:text-2xl mt-3 mb-3">Incorporation Services</p><p class="text-gray font-18 font-400 mt-2">Seamless LLC and C-Corp formation services for businesses looking to establish their legal entity quickly and efficiently.</p></div></div>
+			<div class="content-box w-33"><div><img src="assets/images/icon.svg"><p class="text-white font-medium text-base md:text-lg lg:text-2xl mt-3 mb-3">Business Bank Account</p><p class="text-gray font-18 font-400 mt-2">Open a US business bank account with no EIN required. Multi-currency support included.</p></div></div>
+			<div class="content-box w-33"><div><img src="assets/images/icon.svg"><p class="text-white font-medium text-base md:text-lg lg:text-2xl mt-3 mb-3">Same Day Cash Back</p><p class="text-gray font-18 font-400 mt-2">Access same day cash back with 20% back on eligible purchases.</p></div></div>
+			<div class="content-box w-33"><div><img src="assets/images/icon.svg"><p class="text-white font-medium text-base md:text-lg lg:text-2xl mt-3 mb-3">Level Gift Card</p><p class="text-gray font-18 font-400 mt-2">Send and receive Level Gift Cards for personal or business use. In-store and online. B2B rates available.</p></div></div>
+		</div>
+	</div>
+
+	<!-- APPLY SECTION -->
+	<div class="apply-section wow fadeInUp">
+		<div class="container mx-auto">
+			<h2 class="eudoxus">Apply for Your Level Card 1</h2>
+			<p>Get approved in minutes. Level Card 1 members receive a free $1 grant — no repayment required. This is real money, on us, to help you get started.</p>
+			<button class="btn-apply" onclick="window.location.href='apply.html'">Apply Now — It's Free</button>
+			<p class="apply-note">Only available to Level Card 1 members · $1 free grant · No payback required</p>
+		</div>
+	</div>
+
+	<!-- MIDDLE -->
+	<div class="pt-12 pb-12 middle wow fadeInUp">
+	   	<div class="container mx-auto">
+	        <div class="newsletter w-10/12 mx-auto">
+				<div class="heading text-center">
+				   	<h1 class="text-white font-bold lg:text-4xl eudoxus">Unlock the Doors to Seamless Banking Growth</h1>
+				   	<p class="text-gray font-18 font-normal mt-2">Take charge of your business finances with our feature-rich business accounts, with multi-currency support and no EIN required</p>
+				   	<img src="assets/images/middle.svg" class="w-full">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- NEWSLETTER -->
+	<div class="pt-12 pb-12 wow fadeInUp">
+	   	<div class="container mx-auto">
+	        <div class="newsletter w-8/12 mx-auto">
+				<div class="heading text-center">
+				   	<h1 class="text-white font-bold lg:text-4xl eudoxus">Be a part of this amazing product. Join Us!</h1>
+				</div>
+				<div class="newsletter-form relative w-8/12 mx-auto mt-5">
+                  <form id="newsletterForm" novalidate>
+                    <input type="email" id="newsletterEmail" name="email" class="font-normal text-gray" placeholder="Enter email address" required>
+                    <button type="submit" class="font-normal text-white" id="newsletterBtn">Join Waitlist</button>
+                  </form>
+                  <p id="newsletterMsg" style="display:none;text-align:center;margin-top:10px;color:#a78bfa;font-size:0.9rem;"></p>
+               </div>
+			</div>
+		</div>
+	</div>
+
+	<!-- CONTACT -->
+	<div id="contact" class="pt-12 pb-16 wow fadeInUp" style="background:rgba(255,255,255,0.02);">
+		<div class="container mx-auto px-4">
+			<div style="max-width:480px;margin:0 auto;">
+				<p class="text-center font-normal mb-3" style="font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.38);">GET IN TOUCH</p>
+				<h2 class="text-white font-bold eudoxus text-center mb-2" style="font-size:clamp(22px,3vw,34px);">Contact Us</h2>
+				<p class="text-gray font-normal text-center mb-8" style="font-size:15px;line-height:1.6;">Have questions? We'd love to hear from you. Leave your name and number and we'll reach out shortly.</p>
+				<form id="contactForm" novalidate>
+					<div style="margin-bottom:12px;"><input type="text" name="name" class="contact-input" placeholder="Full Name" required></div>
+					<div style="margin-bottom:16px;"><input type="tel" name="phone" class="contact-input" placeholder="Phone Number" required></div>
+					<div id="contactError" style="display:none;color:#f87171;font-size:13px;margin-bottom:10px;"></div>
+					<button type="submit" id="contactBtn" class="btn-theme text-white font-normal" style="width:100%;border:none;cursor:pointer;text-align:center;font-size:15px;">Send Message</button>
+				</form>
+				<p id="contactSuccess" style="display:none;text-align:center;margin-top:16px;color:#a78bfa;font-size:15px;">✓ Message sent! We'll be in touch soon.</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+    <div class="pt-8 pb-5 wow fadeInUp">
+	    <div class="container mx-auto px-8">
+	        <div class="flex flex-wrap justify-between py-9">
+			    <div class="w-full md:w-1/2 lg:w-1/2 pt-4 pb-4">
+			        <div class="footer_box">
+			        	<img src="assets/images/logo.svg" width="106px" class="mx-1">
+			        	<p class="text-gray font-18 font-400 mt-2">Pursuant to a license by Level International, Inc.</p>
+			        </div>
+			 	</div>
+			 	<div class="w-full md:w-1/2 lg:w-1/2 pt-4 pb-4">
+			        <div class="footer_box flex flex-wrap justify-end gap-5">
+			        	<a href="#"><img src="assets/images/fb.svg"></a>
+			        	<a href="#"><img src="assets/images/twitter.svg"></a>
+			        	<a href="#"><img src="assets/images/insta.svg"></a>
+			        	<a href="#"><img src="assets/images/emai.svg"></a>
+			        </div>
+			 	</div>
+			</div>
+	    </div>
+    	<div class="container mx-auto">
+        	<div class="w-full bottom-fotter">
+			    <div class="footer_box text-center">
+			        <p class="text-white font-18 font-medium uppercase mt-5 circularstd">COPYRIGHT @ 2026 LEVEL</p>
+			    </div>
+			</div>
+		</div>
+	</div>
+
+<script src="assets/js/wow.js"></script>
+<script>new WOW().init();</script>
+<script>
+var authMode = 'signin';
+
+window.addEventListener('load', function() { restoreSession(); });
+
+function restoreSession() {
+  var saved = localStorage.getItem('level_user');
+  if (saved) { try { renderUserSignedIn(JSON.parse(saved)); } catch(e) { localStorage.removeItem('level_user'); } }
+}
+
+function saveAndLogin(profile) {
+  localStorage.setItem('level_user', JSON.stringify(profile));
+  renderUserSignedIn(profile);
+  closeAuth();
+  window.location.href = 'dashboard.html';
+}
+
+function renderUserSignedIn(user) {
+  document.getElementById('authBtns').style.display = 'none';
+  var pill = document.getElementById('userPill');
+  pill.classList.add('show');
+  var firstName = user.name ? user.name.split(' ')[0] : user.email.split('@')[0];
+  document.getElementById('uName').textContent = firstName;
+  document.getElementById('uDropName').textContent = user.name || firstName;
+  document.getElementById('uDropEmail').textContent = user.email;
+  document.getElementById('uInitial').textContent = (user.name || user.email).charAt(0).toUpperCase();
+}
+
+function clearSession() {
+  localStorage.removeItem('level_user');
+  document.getElementById('authBtns').style.display = 'flex';
+  document.getElementById('userPill').classList.remove('show');
+  document.getElementById('uDrop').classList.remove('open');
+}
+
+function signOut() { clearSession(); }
+function toggleUserDrop() { document.getElementById('uDrop').classList.toggle('open'); }
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('userWrap').contains(e.target)) document.getElementById('uDrop').classList.remove('open');
+  if (!document.getElementById('products-nav-wrap').contains(e.target)) document.getElementById('products-nav-menu').style.display = 'none';
+});
+
+function openAuth(mode) {
+  authMode = mode || 'signin';
+  document.getElementById('authTitle').textContent = mode === 'signup' ? 'Create your Level account' : 'Sign in to Level';
+  document.getElementById('authSubtitle').textContent = mode === 'signup' ? 'Join founders building with Level' : 'Access your account and dashboard';
+  document.getElementById('authSubmitBtn').textContent = mode === 'signup' ? 'Create Account' : 'Sign In';
+  document.getElementById('nameRow').style.display = mode === 'signup' ? 'block' : 'none';
+  document.getElementById('authSwitch').innerHTML = mode === 'signup'
+    ? 'Already have an account? <a onclick="switchAuthMode()">Sign in</a>'
+    : "Don't have an account? <a onclick=\"switchAuthMode()\">Sign up free</a>";
+  document.getElementById('authError').classList.remove('show');
+  document.getElementById('authSuccess').classList.remove('show');
+  document.getElementById('authEmail').value = '';
+  document.getElementById('authPass').value = '';
+  if (document.getElementById('authName')) document.getElementById('authName').value = '';
+  document.getElementById('authOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuth() {
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchAuthMode() { openAuth(authMode === 'signin' ? 'signup' : 'signin'); }
+document.getElementById('authClose').addEventListener('click', closeAuth);
+document.getElementById('authOverlay').addEventListener('click', function(e) { if (e.target === this) closeAuth(); });
+
+function handleEmailAuth() {
+  var errEl = document.getElementById('authError');
+  errEl.classList.remove('show');
+  var email = document.getElementById('authEmail').value.trim();
+  var pass = document.getElementById('authPass').value;
+  var name = authMode === 'signup' ? (document.getElementById('authName').value.trim() || '') : '';
+  if (!email || !pass) { errEl.textContent = 'Please enter your email and password.'; errEl.classList.add('show'); return; }
+  if (!email.includes('@')) { errEl.textContent = 'Please enter a valid email address.'; errEl.classList.add('show'); return; }
+  if (pass.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('show'); return; }
+  var accounts = JSON.parse(localStorage.getItem('level_accounts') || '{}');
+  if (authMode === 'signup') {
+    if (accounts[email]) { errEl.textContent = 'An account with this email already exists.'; errEl.classList.add('show'); return; }
+    var newUser = { name: name || email.split('@')[0], email: email, password: btoa(pass), picture: '', createdAt: new Date().toISOString(), approved: false, balance: 0 };
+    accounts[email] = newUser;
+    localStorage.setItem('level_accounts', JSON.stringify(accounts));
+    saveAndLogin({ name: newUser.name, email: newUser.email, picture: '' });
+  } else {
+    var account = accounts[email];
+    if (!account) { errEl.textContent = 'No account found with this email.'; errEl.classList.add('show'); return; }
+    if (btoa(pass) !== account.password) { errEl.textContent = 'Incorrect password.'; errEl.classList.add('show'); return; }
+    saveAndLogin({ name: account.name, email: account.email, picture: account.picture || '' });
+  }
+}
+
+var pBtn = document.getElementById('products-nav-btn');
+var pMenu = document.getElementById('products-nav-menu');
+pBtn.addEventListener('click', function(e) { e.stopPropagation(); pMenu.style.display = pMenu.style.display === 'block' ? 'none' : 'block'; });
+document.getElementById('mobile-menu-button').addEventListener('click', function() { document.getElementById('mobile-menu').classList.toggle('hidden'); });
+
+var wlModal = document.getElementById('emailModal');
+function openWaitlist() { wlModal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+function closeWaitlist() {
+  wlModal.style.display = 'none'; document.body.style.overflow = '';
+  document.getElementById('waitlistForm').reset();
+  document.getElementById('modalFormWrap').style.display = 'block';
+  document.getElementById('modalSuccess').style.display = 'none';
+}
+document.getElementById('bannerWaitlistBtn').addEventListener('click', openWaitlist);
+document.getElementById('closeModalButton').addEventListener('click', closeWaitlist);
+document.getElementById('modalBackdrop').addEventListener('click', closeWaitlist);
+document.getElementById('modalSuccessClose').addEventListener('click', closeWaitlist);
+
+document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!this.checkValidity()) { this.reportValidity(); return; }
+  document.getElementById('submitBtnText').style.display = 'none';
+  document.getElementById('submitBtnLoader').style.display = 'inline';
+  document.getElementById('modalSubmitBtn').disabled = true;
+  try {
+    var res = await fetch('https://formspree.io/f/mkndqvaz', { method:'POST', body:new FormData(this), headers:{'Accept':'application/json'} });
+    if (res.ok) { document.getElementById('modalFormWrap').style.display = 'none'; document.getElementById('modalSuccess').style.display = 'block'; }
+    else { document.getElementById('submitBtnText').style.display = 'inline'; document.getElementById('submitBtnLoader').style.display = 'none'; document.getElementById('modalSubmitBtn').disabled = false; }
+  } catch(err) { document.getElementById('submitBtnText').style.display = 'inline'; document.getElementById('submitBtnLoader').style.display = 'none'; document.getElementById('modalSubmitBtn').disabled = false; }
+});
+
+document.getElementById('newsletterForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var emailInput = document.getElementById('newsletterEmail');
+  if (!emailInput.value || !emailInput.validity.valid) { emailInput.reportValidity(); return; }
+  var btn = document.getElementById('newsletterBtn');
+  btn.textContent = 'Submitting…'; btn.disabled = true;
+  var data = new FormData(); data.append('email', emailInput.value);
+  try {
+    var res = await fetch('https://formspree.io/f/mkndqvaz', { method:'POST', body:data, headers:{'Accept':'application/json'} });
+    if (res.ok) { this.style.display='none'; var msg=document.getElementById('newsletterMsg'); msg.textContent="✓ You're on the list!"; msg.style.display='block'; }
+    else { btn.textContent='Join Waitlist'; btn.disabled=false; }
+  } catch { btn.textContent='Join Waitlist'; btn.disabled=false; }
+});
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!this.checkValidity()) { this.reportValidity(); return; }
+  var btn = document.getElementById('contactBtn');
+  btn.textContent = 'Sending…'; btn.disabled = true;
+  try {
+    var res = await fetch('https://formspree.io/f/mkndqvaz', { method:'POST', body:new FormData(this), headers:{'Accept':'application/json'} });
+    if (res.ok) { this.style.display='none'; document.getElementById('contactSuccess').style.display='block'; }
+    else { btn.textContent='Send Message'; btn.disabled=false; }
+  } catch { btn.textContent='Send Message'; btn.disabled=false; }
+});
+</script>
+</body>
+</html>

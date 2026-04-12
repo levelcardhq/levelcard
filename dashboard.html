@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard – LEVEL</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Work Sans',sans-serif;background:#f5f6fa;color:#111827;}
+.layout{display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:220px;background:#fff;border-right:1px solid #e5e7eb;display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;height:100vh;z-index:100;}
+.sb-logo{padding:20px 20px 16px;border-bottom:1px solid #f3f4f6;}
+.sb-logo-inner{display:flex;align-items:center;gap:8px;}
+.sb-logo-text{font-size:18px;font-weight:800;color:#111;letter-spacing:-0.5px;}
+.sb-beta{font-size:9px;font-weight:700;background:#5C1FF0;color:#fff;padding:2px 7px;border-radius:999px;}
+.sb-nav{padding:12px 0;flex:1;}
+.sb-section{font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.1em;padding:12px 20px 4px;}
+.sb-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:#6b7280;cursor:pointer;text-decoration:none;transition:all .15s;}
+.sb-item:hover{background:#f9fafb;color:#374151;}
+.sb-item.active{background:#f3f0ff;color:#5C1FF0;font-weight:600;border-right:2px solid #5C1FF0;}
+.sb-item svg{width:16px;height:16px;flex-shrink:0;}
+.sb-bottom{padding:16px 20px;border-top:1px solid #f3f4f6;}
+.sb-user{display:flex;align-items:center;gap:10px;}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:#5C1FF0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.sb-name{font-size:13px;font-weight:600;color:#111;}
+.sb-role{font-size:11px;color:#9ca3af;}
+.sb-signout{width:100%;background:none;border:none;text-align:left;padding:8px 0 0;font-size:12px;color:#ef4444;cursor:pointer;font-family:'Work Sans',sans-serif;}
+
+/* MAIN */
+.main{margin-left:220px;flex:1;padding:28px 32px;}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;}
+.page-title{font-size:20px;font-weight:700;color:#111;}
+.page-date{font-size:13px;color:#9ca3af;margin-top:3px;}
+.top-actions{display:flex;gap:10px;}
+.btn-outline{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:9px 18px;font-size:13px;color:#374151;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:500;}
+.btn-primary{background:#5C1FF0;border:none;border-radius:8px;padding:9px 18px;font-size:13px;color:#fff;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600;}
+
+/* NOT APPROVED BANNER */
+.not-approved-banner{background:linear-gradient(135deg,#5C1FF0,#8B5CF6);border-radius:12px;padding:24px 28px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nab-text h3{color:#fff;font-size:16px;font-weight:700;margin-bottom:4px;}
+.nab-text p{color:rgba(255,255,255,0.8);font-size:13px;}
+.nab-btn{background:#fff;color:#5C1FF0;border:none;border-radius:30px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Work Sans',sans-serif;text-decoration:none;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:24px;}
+.stat-card{background:#fff;border-radius:12px;border:1px solid #e5e7eb;padding:18px;}
+.stat-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.stat-icon.purple{background:#f3f0ff;}
+.stat-icon.green{background:#f0fdf4;}
+.stat-icon.blue{background:#eff6ff;}
+.stat-icon.amber{background:#fffbeb;}
+.stat-label{font-size:11px;color:#9ca3af;margin-bottom:6px;font-weight:500;}
+.stat-val{font-size:22px;font-weight:700;color:#111;margin-bottom:3px;}
+.stat-note{font-size:11px;color:#9ca3af;}
+
+/* GRANT CARD */
+.grant-card{background:linear-gradient(135deg,#059669,#10B981);border-radius:12px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;}
+.gc-left h3{color:#fff;font-size:15px;font-weight:700;margin-bottom:4px;}
+.gc-left p{color:rgba(255,255,255,0.8);font-size:13px;}
+.gc-amount{font-size:28px;font-weight:800;color:#fff;}
+.gc-label{font-size:11px;color:rgba(255,255,255,0.65);text-align:right;}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;margin-bottom:24px;}
+.card{background:#fff;border-radius:12px;border:1px solid #e5e7eb;padding:20px;}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+.card-title{font-size:14px;font-weight:600;color:#111;}
+.card-sub{font-size:12px;color:#9ca3af;margin-bottom:16px;}
+
+/* TRANSACTIONS */
+.tx-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f9fafb;}
+.tx-row:last-child{border-bottom:none;}
+.tx-icon{width:36px;height:36px;border-radius:9px;background:#f3f0ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tx-info{flex:1;min-width:0;}
+.tx-name{font-size:13px;font-weight:500;color:#111;}
+.tx-date{font-size:11px;color:#9ca3af;}
+.tx-right{text-align:right;}
+.tx-amt{font-size:13px;font-weight:600;}
+.tx-amt.neg{color:#dc2626;}
+.tx-amt.pos{color:#059669;}
+.tx-badge{font-size:10px;padding:2px 8px;border-radius:999px;font-weight:500;margin-top:3px;display:inline-block;}
+.tx-badge.settled{background:#f0fdf4;color:#059669;}
+.tx-badge.pending{background:#fffbeb;color:#92400e;}
+.empty-tx{text-align:center;padding:32px 0;color:#9ca3af;font-size:13px;}
+
+/* LEVEL CARD WIDGET */
+.level-card-widget{background:linear-gradient(135deg,#5C1FF0,#8B5CF6);border-radius:14px;padding:20px;color:#fff;margin-bottom:16px;}
+.lcw-label{font-size:10px;opacity:.65;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.lcw-num{font-size:12px;letter-spacing:3px;opacity:.55;margin-bottom:14px;}
+.lcw-balance{font-size:26px;font-weight:800;margin-bottom:2px;}
+.lcw-sub{font-size:11px;opacity:.55;}
+.lcw-actions{display:flex;gap:8px;margin-top:16px;}
+.lcw-btn{background:rgba(255,255,255,.15);border:none;border-radius:6px;padding:7px 14px;font-size:11px;color:#fff;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:500;}
+
+/* LOAN COMING SOON */
+.loan-soon{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:20px;text-align:center;}
+.loan-soon h4{font-size:14px;font-weight:700;color:#111;margin-bottom:6px;}
+.loan-soon p{font-size:12px;color:#6b7280;line-height:1.6;}
+.soon-pill{display:inline-block;background:#e0e7ff;color:#4F46E5;font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-inner">
+        <span class="sb-logo-text">LEVEL</span>
+        <span class="sb-beta">Beta</span>
+      </div>
+    </div>
+    <div class="sb-nav">
+      <div class="sb-section">Main</div>
+      <a href="dashboard.html" class="sb-item active">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke-width="2"/></svg>
+        Overview
+      </a>
+      <a href="#" class="sb-item">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke-width="2"/><line x1="2" y1="10" x2="22" y2="10" stroke-width="2"/></svg>
+        My Card
+      </a>
+      <a href="#" class="sb-item">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7h12m0 0l-4-4m4 4l-4 4M4 17h12m0 0l-4 4m4-4l-4-4" stroke-width="2"/></svg>
+        Transfers
+      </a>
+      <a href="#" class="sb-item">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-width="2"/></svg>
+        Analytics
+      </a>
+      <div class="sb-section">Products</div>
+      <a href="level-grant.html" class="sb-item">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V7m0 9v1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2"/></svg>
+        Level Grant
+      </a>
+      <a href="level-giftcard.html" class="sb-item">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12z" stroke-width="2"/></svg>
+        Gift Cards
+      </a>
+      <a href="level-loan.html" class="sb-item">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" stroke-width="2"/></svg>
+        Level Loan <span style="font-size:9px;background:#e0e7ff;color:#4F46E5;padding:1px 6px;border-radius:999px;font-weight:700;margin-left:4px;">Soon</span>
+      </a>
+    </div>
+    <div class="sb-bottom">
+      <div class="sb-user">
+        <div class="sb-avatar" id="sbAvatar">?</div>
+        <div>
+          <div class="sb-name" id="sbName">Loading...</div>
+          <div class="sb-role">Level Card 1</div>
+        </div>
+      </div>
+      <button class="sb-signout" onclick="signOut()">Sign out</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <div class="page-title" id="greetingText">Good morning</div>
+        <div class="page-date" id="dateText"></div>
+      </div>
+      <div class="top-actions">
+        <button class="btn-outline">Export</button>
+        <button class="btn-primary">+ Add Funds</button>
+      </div>
+    </div>
+
+    <!-- NOT APPROVED BANNER (shown if not approved) -->
+    <div class="not-approved-banner" id="notApprovedBanner" style="display:none;">
+      <div class="nab-text">
+        <h3>Complete your Level Card 1 application</h3>
+        <p>Apply now to unlock your free $1 grant and access all Level Card features.</p>
+      </div>
+      <a href="apply.html" class="nab-btn">Apply Now →</a>
+    </div>
+
+    <!-- GRANT CARD (shown if approved) -->
+    <div class="grant-card" id="grantCard" style="display:none;">
+      <div class="gc-left">
+        <h3>Your Level Grant — Free Money 🎉</h3>
+        <p>No repayment required. This is yours to keep. Exclusively for Level Card 1 members.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="gc-amount">$1.00</div>
+        <div class="gc-label">Free Grant · No Payback</div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon purple">
+          <svg width="18" height="18" fill="none" stroke="#5C1FF0" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V7m0 9v1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2"/></svg>
+        </div>
+        <div class="stat-label">Total Balance</div>
+        <div class="stat-val" id="balanceVal">$0.00</div>
+        <div class="stat-note">Level Card 1</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">
+          <svg width="18" height="18" fill="none" stroke="#059669" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2"/></svg>
+        </div>
+        <div class="stat-label">Total Spent</div>
+        <div class="stat-val">$0.00</div>
+        <div class="stat-note">This month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue">
+          <svg width="18" height="18" fill="none" stroke="#2563eb" viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-width="2"/></svg>
+        </div>
+        <div class="stat-label">Cash Back Earned</div>
+        <div class="stat-val">$0.00</div>
+        <div class="stat-note">20% same-day</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon amber">
+          <svg width="18" height="18" fill="none" stroke="#d97706" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke-width="2"/><line x1="2" y1="10" x2="22" y2="10" stroke-width="2"/></svg>
+        </div>
+        <div class="stat-label">Grant Balance</div>
+        <div class="stat-val" id="grantVal">$0.00</div>
+        <div class="stat-note">Free · No payback</div>
+      </div>
+    </div>
+
+    <!-- TWO COL -->
+    <div class="two-col">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Recent Transactions</div>
+        </div>
+        <div class="card-sub">Your transaction history will appear here</div>
+        <div class="empty-tx">
+          <svg width="40" height="40" fill="none" stroke="#d1d5db" viewBox="0 0 24 24" style="margin:0 auto 12px;display:block;"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-width="1.5"/></svg>
+          No transactions yet.<br>Activity will show up here once your card is active.
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="level-card-widget">
+          <div class="lcw-label">Level Card 1</div>
+          <div class="lcw-num" id="cardNum">•••• •••• •••• ——</div>
+          <div class="lcw-balance" id="cardBalance">$0.00</div>
+          <div class="lcw-sub">Available balance</div>
+          <div class="lcw-actions">
+            <button class="lcw-btn">Freeze</button>
+            <button class="lcw-btn">Details</button>
+            <button class="lcw-btn">Limits</button>
+          </div>
+        </div>
+
+        <div class="loan-soon">
+          <div class="soon-pill">Coming Soon</div>
+          <h4>Level Loan</h4>
+          <p>We're launching low-cost loans exclusively for Level Card members. Stay tuned — it's coming soon and you'll be first to know.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Check login
+window.addEventListener('load', function() {
+  var saved = localStorage.getItem('level_user');
+  if (!saved) { window.location.href = 'index.html'; return; }
+  try {
+    var user = JSON.parse(saved);
+    var firstName = user.name ? user.name.split(' ')[0] : 'there';
+
+    // Greeting
+    var h = new Date().getHours();
+    var greeting = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+    document.getElementById('greetingText').textContent = greeting + ', ' + firstName;
+
+    // Date
+    var now = new Date();
+    document.getElementById('dateText').textContent = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+    // Sidebar
+    document.getElementById('sbAvatar').textContent = (user.name || user.email).charAt(0).toUpperCase();
+    document.getElementById('sbName').textContent = firstName;
+
+    // Check approved status from accounts
+    var accounts = JSON.parse(localStorage.getItem('level_accounts') || '{}');
+    var account = accounts[user.email] || {};
+    var approved = account.approved || user.approved || false;
+    var grant = account.grant || user.grant || 0;
+
+    if (approved) {
+      document.getElementById('grantCard').style.display = 'flex';
+      document.getElementById('grantVal').textContent = '$' + parseFloat(grant).toFixed(2);
+      document.getElementById('balanceVal').textContent = '$' + parseFloat(grant).toFixed(2);
+      document.getElementById('cardBalance').textContent = '$' + parseFloat(grant).toFixed(2);
+    } else {
+      document.getElementById('notApprovedBanner').style.display = 'flex';
+    }
+  } catch(e) {
+    window.location.href = 'index.html';
+  }
+});
+
+function signOut() {
+  localStorage.removeItem('level_user');
+  window.location.href = 'index.html';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LevelPay – Coming Soon – LEVEL</title>
+<link rel="stylesheet" href="assets/css/custom.css">
+<link rel="stylesheet" href="assets/css/animate.css">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="bg-header">
+<div class="flex items-center justify-between p-4 container mx-auto">
+<div class="flex items-center gap-2"><a href="index.html"><img src="assets/images/logo.svg" alt="Logo" class="h-10"></a><span style="font-size:.65rem;font-weight:700;letter-spacing:.08em;color:#fff;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:2px 8px;border-radius:999px;text-transform:uppercase;opacity:.92;font-family:'Work Sans',sans-serif;">Beta</span></div>
+<nav class="hidden md:flex space-x-8" style="align-items:center;">
+<div style="position:relative;" id="products-nav-wrap"><button id="products-nav-btn" class="text-gray font-normal focus:outline-none" style="display:flex;align-items:center;gap:4px;cursor:pointer;background:none;border:none;">Products <svg style="width:12px;height:12px;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button><div id="products-nav-menu" style="display:none;position:absolute;top:calc(100%+10px);left:0;min-width:200px;background:#fff;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden;z-index:200;"><a href="level-grant.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Grant</a><a href="level-loan.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Loan</a><a href="level-giftcard.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Gift Card</a><a href="levelpay.html" style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">LevelPay <span style="font-size:10px;background:#e0e7ff;color:#4F46E5;padding:2px 7px;border-radius:999px;font-weight:600;">Soon</span></a><a href="level-black.html" style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;border-top:1px solid #f3f4f6;" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background=''">Level Black <span style="font-size:10px;background:#111827;color:#fff;padding:2px 7px;border-radius:999px;font-weight:600;">Invite Only</span></a></div></div>
+<a href="global.html" class="text-gray font-normal">Global</a>
+<a href="startups.html" class="text-gray font-normal">Startups</a>
+<a href="about.html" class="text-gray font-normal">About Us</a>
+<a href="#" class="text-gray font-normal">FAQs</a>
+</nav>
+<a href="index.html" class="btn-theme text-white font-normal">Join Waitlist</a>
+<div class="md:hidden"><button id="mobile-menu-button" class="text-white focus:outline-none"><svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button></div>
+<div id="mobile-menu" class="md:hidden hidden"><div class="flex flex-col space-y-2">
+<a href="level-grant.html" class="text-gray font-normal">Level Grant</a><a href="level-loan.html" class="text-gray font-normal">Level Loan</a><a href="level-giftcard.html" class="text-gray font-normal">Level Gift Card</a><a href="levelpay.html" class="text-gray font-normal">LevelPay</a><a href="level-black.html" class="text-gray font-normal">Level Black</a><a href="global.html" class="text-gray font-normal">Global</a><a href="startups.html" class="text-gray font-normal">Startups</a><a href="about.html" class="text-gray font-normal">About Us</a><a href="#" class="text-gray font-normal">FAQs</a>
+</div></div>
+</div>
+</header>
+<script>document.getElementById('mobile-menu-button').addEventListener('click',function(){document.getElementById('mobile-menu').classList.toggle('hidden');});var pBtn=document.getElementById('products-nav-btn'),pMenu=document.getElementById('products-nav-menu');pBtn.addEventListener('click',function(e){e.stopPropagation();pMenu.style.display=pMenu.style.display==='block'?'none':'block';});document.addEventListener('click',function(){pMenu.style.display='none';});</script>
+
+<style>
+.lp-feature{background:linear-gradient(330.69deg,#0C101B 0%,#0D1428 100%);border-radius:12px;padding:24px 28px;border:1px solid rgba(59,130,246,.15);flex:1;min-width:200px;max-width:260px;text-align:center;}
+</style>
+<div style="background:linear-gradient(160deg,#060A1A 0%,#0A1130 60%,#07060B 100%);padding:100px 24px 80px;text-align:center;">
+<div class="container mx-auto">
+<p style="font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;">Coming Soon</p>
+<h1 class="text-white font-bold eudoxus" style="font-size:clamp(36px,5vw,64px);line-height:1.1;margin-bottom:16px;">Level<span style="background:linear-gradient(135deg,#1E3A8A,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pay</span></h1>
+<p class="text-gray font-normal" style="font-size:18px;max-width:520px;margin:0 auto 48px;line-height:1.7;">A smarter way to send, receive, and manage payments — built for founders and businesses at every level. We're putting the finishing touches on something special.</p>
+<div class="flex flex-wrap justify-center gap-5 mb-16">
+<div class="lp-feature"><div style="font-size:1.8rem;margin-bottom:10px;">⚡</div><p class="text-white font-medium" style="font-size:15px;">Instant Transfers</p></div>
+<div class="lp-feature"><div style="font-size:1.8rem;margin-bottom:10px;">🌐</div><p class="text-white font-medium" style="font-size:15px;">Global Payments</p></div>
+<div class="lp-feature"><div style="font-size:1.8rem;margin-bottom:10px;">🔒</div><p class="text-white font-medium" style="font-size:15px;">Bank-Grade Security</p></div>
+<div class="lp-feature"><div style="font-size:1.8rem;margin-bottom:10px;">💱</div><p class="text-white font-medium" style="font-size:15px;">Multi-Currency</p></div>
+</div>
+<div style="max-width:440px;margin:0 auto;">
+<p class="text-white font-normal mb-4" style="font-size:15px;">Get notified when LevelPay launches</p>
+<form id="lpForm" novalidate style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+<input type="email" name="email" placeholder="your@email.com" required style="flex:1;min-width:200px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:30px;padding:13px 20px;color:#fff;font-size:15px;outline:none;font-family:'Work Sans',sans-serif;-webkit-appearance:none;">
+<button type="submit" id="lpBtn" style="background:linear-gradient(135deg,#1E3A8A,#3B82F6);color:#fff;border:none;border-radius:30px;padding:13px 28px;font-weight:600;cursor:pointer;font-family:'Work Sans',sans-serif;font-size:15px;">Notify Me</button>
+</form>
+<p id="lpSuccess" style="display:none;color:#60A5FA;font-size:14px;margin-top:12px;">✓ You're on the list! We'll notify you at launch.</p>
+</div>
+</div>
+</div>
+<script>
+document.getElementById('lpForm').addEventListener('submit',async function(e){e.preventDefault();if(!this.checkValidity()){this.reportValidity();return;}var btn=document.getElementById('lpBtn');btn.textContent='...';btn.disabled=true;var data=new FormData();data.append('email',this.querySelector('[name=email]').value);try{var res=await fetch('https://formspree.io/f/mkndqvaz',{method:'POST',body:data,headers:{'Accept':'application/json'}});if(res.ok){this.style.display='none';document.getElementById('lpSuccess').style.display='block';}else{btn.textContent='Notify Me';btn.disabled=false;}}catch{btn.textContent='Notify Me';btn.disabled=false;}});
+</script>
+
+<div class="pt-8 pb-5">
+<div class="container mx-auto px-8"><div class="flex flex-wrap justify-between py-9">
+<div class="w-full md:w-1/2 pt-4 pb-4"><div class="footer_box"><a href="index.html"><img src="assets/images/logo.svg" width="106px" class="mx-1"></a><p class="text-gray font-18 font-400 mt-2">Pursuant to a license by Level International, Inc.</p></div></div>
+<div class="w-full md:w-1/2 pt-4 pb-4"><div class="footer_box flex flex-wrap justify-end gap-5"><a href="#"><img src="assets/images/fb.svg"></a><a href="#"><img src="assets/images/twitter.svg"></a><a href="#"><img src="assets/images/insta.svg"></a><a href="#"><img src="assets/images/emai.svg"></a></div></div>
+</div></div>
+<div class="container mx-auto"><div class="w-full bottom-fotter"><div class="footer_box text-center"><p class="text-white font-18 font-medium uppercase mt-5 circularstd">COPYRIGHT @ 2026 LEVEL</p></div></div></div>
+</div>
+<script src="assets/js/wow.js"></script><script>new WOW().init();</script>
+</body></html>

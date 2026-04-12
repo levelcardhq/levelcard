@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Gift Card – LEVEL</title>
+<link rel="stylesheet" href="assets/css/custom.css">
+<link rel="stylesheet" href="assets/css/animate.css">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="bg-header">
+<div class="flex items-center justify-between p-4 container mx-auto">
+<div class="flex items-center gap-2"><a href="index.html"><img src="assets/images/logo.svg" alt="Logo" class="h-10"></a><span style="font-size:.65rem;font-weight:700;letter-spacing:.08em;color:#fff;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:2px 8px;border-radius:999px;text-transform:uppercase;opacity:.92;font-family:'Work Sans',sans-serif;">Beta</span></div>
+<nav class="hidden md:flex space-x-8" style="align-items:center;">
+<div style="position:relative;" id="products-nav-wrap"><button id="products-nav-btn" class="text-gray font-normal focus:outline-none" style="display:flex;align-items:center;gap:4px;cursor:pointer;background:none;border:none;">Products <svg style="width:12px;height:12px;margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></button><div id="products-nav-menu" style="display:none;position:absolute;top:calc(100%+10px);left:0;min-width:200px;background:#fff;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden;z-index:200;"><a href="level-grant.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Grant</a><a href="level-loan.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Loan</a><a href="level-giftcard.html" style="display:block;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">Level Gift Card</a><a href="levelpay.html" style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;" onmouseover="this.style.background='#F3F0FF'" onmouseout="this.style.background=''">LevelPay <span style="font-size:10px;background:#e0e7ff;color:#4F46E5;padding:2px 7px;border-radius:999px;font-weight:600;">Soon</span></a><a href="level-black.html" style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;color:#374151;font-size:14px;text-decoration:none;border-top:1px solid #f3f4f6;" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background=''">Level Black <span style="font-size:10px;background:#111827;color:#fff;padding:2px 7px;border-radius:999px;font-weight:600;">Invite Only</span></a></div></div>
+<a href="global.html" class="text-gray font-normal">Global</a>
+<a href="startups.html" class="text-gray font-normal">Startups</a>
+<a href="about.html" class="text-gray font-normal">About Us</a>
+<a href="#" class="text-gray font-normal">FAQs</a>
+</nav>
+<a href="index.html" class="btn-theme text-white font-normal">Join Waitlist</a>
+<div class="md:hidden"><button id="mobile-menu-button" class="text-white focus:outline-none"><svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button></div>
+<div id="mobile-menu" class="md:hidden hidden"><div class="flex flex-col space-y-2">
+<a href="level-grant.html" class="text-gray font-normal">Level Grant</a><a href="level-loan.html" class="text-gray font-normal">Level Loan</a><a href="level-giftcard.html" class="text-gray font-normal">Level Gift Card</a><a href="levelpay.html" class="text-gray font-normal">LevelPay</a><a href="level-black.html" class="text-gray font-normal">Level Black</a><a href="global.html" class="text-gray font-normal">Global</a><a href="startups.html" class="text-gray font-normal">Startups</a><a href="about.html" class="text-gray font-normal">About Us</a><a href="#" class="text-gray font-normal">FAQs</a>
+</div></div>
+</div>
+</header>
+<script>document.getElementById('mobile-menu-button').addEventListener('click',function(){document.getElementById('mobile-menu').classList.toggle('hidden');});var pBtn=document.getElementById('products-nav-btn'),pMenu=document.getElementById('products-nav-menu');pBtn.addEventListener('click',function(e){e.stopPropagation();pMenu.style.display=pMenu.style.display==='block'?'none':'block';});document.addEventListener('click',function(){pMenu.style.display='none';});</script>
+
+<style>
+.gc-hero{background:linear-gradient(160deg,#0A1A0A 0%,#0D2010 60%,#07060B 100%);padding:80px 24px 60px;}
+.gc-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px 24px;text-align:center;flex:1;min-width:120px;}
+.gc-stat-num{font-size:1.6rem;font-weight:800;color:#10B981;}
+.gc-feature{background:linear-gradient(330.69deg,#0C101B 0%,#0E1A14 100%);border-radius:12px;padding:24px 28px;border:1px solid rgba(16,185,129,.15);flex:1;min-width:220px;max-width:300px;}
+.btn-green{background:linear-gradient(135deg,#059669,#10B981);color:#fff;font-weight:700;border-radius:30px;padding:14px 36px;text-decoration:none;display:inline-block;border:none;cursor:pointer;font-family:'Work Sans',sans-serif;font-size:15px;}
+</style>
+<div class="gc-hero">
+<div class="container mx-auto text-center">
+<p style="font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;">Level Products</p>
+<h1 class="text-white font-bold eudoxus" style="font-size:clamp(32px,4vw,54px);line-height:1.15;">Level <span style="background:linear-gradient(135deg,#059669,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Gift Card</span></h1>
+<p class="text-gray font-normal mt-4" style="font-size:17px;max-width:540px;margin-left:auto;margin-right:auto;line-height:1.7;">Give the gift of financial freedom. Level Gift Cards are accepted everywhere — in-store and online. Perfect for personal gifting and B2B programs.</p>
+<div class="flex flex-wrap justify-center gap-4 mt-10">
+<div class="gc-stat"><div class="gc-stat-num">$25–$500</div><p class="text-gray" style="font-size:12px;margin-top:4px;">Gift Card Value</p></div>
+<div class="gc-stat"><div class="gc-stat-num" style="font-size:1.2rem;">In-Store &amp; Online</div><p class="text-gray" style="font-size:12px;margin-top:4px;">Valid For</p></div>
+<div class="gc-stat"><div class="gc-stat-num" style="font-size:1.2rem;">Personal &amp; B2B</div><p class="text-gray" style="font-size:12px;margin-top:4px;">Program</p></div>
+<div class="gc-stat"><div class="gc-stat-num" style="font-size:1.2rem;">Digital &amp; Physical</div><p class="text-gray" style="font-size:12px;margin-top:4px;">Delivery</p></div>
+</div>
+</div>
+</div>
+<div class="container mx-auto px-4 py-16">
+<h2 class="text-white font-bold eudoxus text-center mb-10" style="font-size:clamp(22px,2.5vw,32px);">Everything You Need in a Gift Card</h2>
+<div class="flex flex-wrap justify-center gap-5 mb-16">
+<div class="gc-feature"><p class="text-white font-medium" style="font-size:17px;margin-bottom:8px;">In-Store &amp; Online</p><p class="text-gray font-normal" style="font-size:14px;line-height:1.7;">Level Gift Cards are accepted at physical retail locations and online stores. Give them the freedom to shop where they want.</p></div>
+<div class="gc-feature"><p class="text-white font-medium" style="font-size:17px;margin-bottom:8px;">B2B Programs</p><p class="text-gray font-normal" style="font-size:14px;line-height:1.7;">Running a rewards, employee gifting, or loyalty program? B2B customers get custom rates. Contact us today to set up your program.</p></div>
+<div class="gc-feature"><p class="text-white font-medium" style="font-size:17px;margin-bottom:8px;">Flexible Denominations</p><p class="text-gray font-normal" style="font-size:14px;line-height:1.7;">Choose from a range of values from $25 to $500. Custom amounts available for B2B partners with bulk orders.</p></div>
+<div class="gc-feature"><p class="text-white font-medium" style="font-size:17px;margin-bottom:8px;">Carry in Your Store</p><p class="text-gray font-normal" style="font-size:14px;line-height:1.7;">Interested in having Level Gift Cards available in your physical or online store? Contact us today and let's make it happen.</p></div>
+</div>
+<div style="background:linear-gradient(330.69deg,#0C101B 0%,#0E1A14 100%);border:1px solid rgba(16,185,129,.2);border-radius:16px;padding:40px;max-width:680px;margin:0 auto;text-align:center;">
+<p style="font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px;">LEVEL FINANCING</p>
+<h3 class="text-white font-bold eudoxus" style="font-size:clamp(20px,2.5vw,28px);margin-bottom:12px;">Finance Big Purchases for 1 Year</h3>
+<p class="text-gray font-normal" style="font-size:15px;line-height:1.7;margin-bottom:20px;">Use your Level Gift Card to unlock financing options for larger purchases. Get up to 30-day terms and beyond — giving you the flexibility to buy now and pay on your schedule.</p>
+<div class="flex flex-wrap justify-center gap-4 mb-24">
+<p class="text-gray" style="font-size:14px;">✓ 30-day payment terms available</p>
+<p class="text-gray" style="font-size:14px;">✓ Extended terms beyond 30 days</p>
+<p class="text-gray" style="font-size:14px;">✓ Finance purchases up to a full year</p>
+<p class="text-gray" style="font-size:14px;">✓ Perfect for business equipment &amp; inventory</p>
+</div>
+</div>
+<div style="text-align:center;margin-top:48px;">
+<h3 class="text-white font-bold eudoxus" style="font-size:clamp(20px,2.5vw,28px);margin-bottom:12px;">🎁 Ready to Get Started?</h3>
+<p class="text-gray font-normal" style="font-size:15px;max-width:500px;margin:0 auto 24px;line-height:1.7;">B2B customers contact us for our rates. Interested in having our gift cards in your store? Contact us today.</p>
+<a href="/cdn-cgi/l/email-protection#d7bfb2bbbbb897bbb2a1b2bbbeb9a3bbf9b4b8ba" class="btn-green">Contact Us Today</a>
+</div>
+</div>
+
+<div class="pt-8 pb-5">
+<div class="container mx-auto px-8"><div class="flex flex-wrap justify-between py-9">
+<div class="w-full md:w-1/2 pt-4 pb-4"><div class="footer_box"><a href="index.html"><img src="assets/images/logo.svg" width="106px" class="mx-1"></a><p class="text-gray font-18 font-400 mt-2">Pursuant to a license by Level International, Inc.</p></div></div>
+<div class="w-full md:w-1/2 pt-4 pb-4"><div class="footer_box flex flex-wrap justify-end gap-5"><a href="#"><img src="assets/images/fb.svg"></a><a href="#"><img src="assets/images/twitter.svg"></a><a href="#"><img src="assets/images/insta.svg"></a><a href="#"><img src="assets/images/emai.svg"></a></div></div>
+</div></div>
+<div class="container mx-auto"><div class="w-full bottom-fotter"><div class="footer_box text-center"><p class="text-white font-18 font-medium uppercase mt-5 circularstd">COPYRIGHT @ 2026 LEVEL</p></div></div></div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scri
