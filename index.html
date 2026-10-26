@@ -158,7 +158,7 @@
 		        <a href="global.html" class="text-gray font-normal">Global</a>
 		        <a href="startups.html" class="text-gray font-normal">Startups</a>
 		        <a href="about.html" class="text-gray font-normal">About Us</a>
-		        <a href="#" class="text-gray font-normal">FAQs</a>
+		        <a href="#faqs" class="text-gray font-normal">FAQs</a>
 		    </nav>
 		    <div id="authBtns" style="display:flex;align-items:center;gap:8px;">
 		      <button class="btn-signin" onclick="openAuth('signin')">Sign In</button>
@@ -200,7 +200,7 @@
 		            <a href="global.html" class="text-gray font-normal">Global</a>
 		            <a href="startups.html" class="text-gray font-normal">Startups</a>
 		            <a href="about.html" class="text-gray font-normal">About Us</a>
-		            <a href="#" class="text-gray font-normal">FAQs</a>
+		            <a href="#faqs" class="text-gray font-normal">FAQs</a>
 		            <hr style="border-color:rgba(255,255,255,0.1);">
 		            <a class="text-gray font-normal" style="cursor:pointer;" onclick="openAuth('signin')">Sign In</a>
 		            <a class="text-gray font-normal" style="cursor:pointer;" onclick="openAuth('signup')">Sign Up</a>
@@ -510,5 +510,14 @@ document.getElementById('contactForm').addEventListener('submit', async function
   } catch { btn.textContent='Send Message'; btn.disabled=false; }
 });
 </script>
+
+<section id="faqs" style="background:#0b0b14;color:#fff;padding:64px 24px;" aria-labelledby="level-faq-heading">
+  <div style="max-width:850px;margin:0 auto;font-family:'Work Sans',sans-serif;">
+    <h2 id="level-faq-heading" style="font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:28px;">Frequently Asked Questions</h2>
+    <details style="border-top:1px solid #383345;padding:18px 0;"><summary style="cursor:pointer;font-weight:600;">What is Level?</summary><p style="color:#cbc7d5;margin-top:12px;">Explore Level's products and services using the Products menu above.</p></details>
+    <details style="border-top:1px solid #383345;padding:18px 0;"><summary style="cursor:pointer;font-weight:600;">How do I create an account?</summary><p style="color:#cbc7d5;margin-top:12px;">Select Sign Up in the navigation to open the account form. Account functionality is currently being upgraded.</p></details>
+    <details style="border-top:1px solid #383345;border-bottom:1px solid #383345;padding:18px 0;"><summary style="cursor:pointer;font-weight:600;">Where can I learn about Level products?</summary><p style="color:#cbc7d5;margin-top:12px;">Use the Products menu to explore Level Grant, Level Loan, Level Gift Card, LevelPay, and Level Black.</p></details>
+  </div>
+</section>
 </body>
 </html>
