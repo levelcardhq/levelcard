@@ -110,7 +110,7 @@
 
   <!-- AUTH MODAL -->
   <div class="auth-overlay" id="authOverlay">
-    <div class="auth-box">
+    <div class="auth-box" role="dialog" aria-modal="true" aria-labelledby="authTitle">
       <div class="auth-head">
         <button class="auth-close" id="authClose" aria-label="Close">
           <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -119,20 +119,28 @@
         <p id="authSubtitle">Access your Level account and dashboard</p>
       </div>
       <div class="auth-body">
-        <div id="authError" class="auth-error"></div>
-        <div id="authSuccess" class="auth-success"></div>
-        <div id="nameRow" style="display:none;">
-          <label class="f-label">Full Name</label>
-          <input class="f-input" id="authName" type="text" placeholder="Your name" autocomplete="name">
+        <div id="authError" class="auth-error" role="alert"></div>
+        <div id="authSuccess" class="auth-success" role="status"></div>
+        <div style="display:flex;gap:8px;margin-bottom:18px;">
+          <button type="button" id="emailTab" class="btn-auth-submit" aria-pressed="true" onclick="setAuthMethod('email')">Email</button>
+          <button type="button" id="phoneTab" class="btn-auth-submit" aria-pressed="false" onclick="setAuthMethod('phone')">Phone</button>
         </div>
-        <label class="f-label">Email</label>
-        <input class="f-input" id="authEmail" type="email" placeholder="you@company.com" autocomplete="email">
-        <label class="f-label">Password</label>
-        <input class="f-input" id="authPass" type="password" placeholder="••••••••" autocomplete="current-password" style="margin-bottom:0;">
-        <button class="btn-auth-submit" id="authSubmitBtn" onclick="handleEmailAuth()">Sign In</button>
-        <div class="auth-switch" id="authSwitch">
-          Don't have an account? <a onclick="switchAuthMode()">Sign up free</a>
-        </div>
+        <form id="authForm" novalidate>
+          <div id="nameRow" hidden><label class="f-label" for="authName">Full name</label><input class="f-input" id="authName" autocomplete="name" maxlength="200"></div>
+          <div id="emailFields">
+            <label class="f-label" for="authEmail">Email</label><input class="f-input" id="authEmail" type="email" autocomplete="email">
+            <label class="f-label" for="authPass">Password</label><input class="f-input" id="authPass" type="password" autocomplete="current-password" minlength="8">
+          </div>
+          <div id="phoneFields" hidden>
+            <label class="f-label" for="authPhone">Phone number with country code</label><input class="f-input" id="authPhone" type="tel" autocomplete="tel" placeholder="+1 202 555 0123">
+            <p style="font-size:12px;color:#6b7280;margin-bottom:12px;">Requesting a code sends a sign-in text to this number. Message and data rates may apply.</p>
+            <div id="codeRow" hidden><label class="f-label" for="authCode">Verification code</label><input class="f-input" id="authCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+              <button type="button" onclick="setAuthMethod('phone')">Use another number or request a new code</button>
+            </div>
+          </div>
+          <button class="btn-auth-submit" type="submit" id="authSubmitBtn">Sign in</button>
+        </form>
+        <div class="auth-switch" id="authSwitch">New to Level? <a href="#" onclick="switchAuthMode();return false">Create an account</a></div>
       </div>
     </div>
   </div>
@@ -358,101 +366,12 @@
 		</div>
 	</div>
 
+<script src="assets/js/vendor/supabase-2.49.1.js"></script>
+<script src="assets/js/level-client.js"></script>
+<script src="assets/js/level-auth.js"></script>
 <script src="assets/js/wow.js"></script>
 <script>new WOW().init();</script>
 <script>
-var authMode = 'signin';
-
-window.addEventListener('load', function() { restoreSession(); });
-
-function restoreSession() {
-  var saved = localStorage.getItem('level_user');
-  if (saved) { try { renderUserSignedIn(JSON.parse(saved)); } catch(e) { localStorage.removeItem('level_user'); } }
-}
-
-function saveAndLogin(profile) {
-  localStorage.setItem('level_user', JSON.stringify(profile));
-  renderUserSignedIn(profile);
-  closeAuth();
-  window.location.href = 'dashboard.html';
-}
-
-function renderUserSignedIn(user) {
-  document.getElementById('authBtns').style.display = 'none';
-  var pill = document.getElementById('userPill');
-  pill.classList.add('show');
-  var firstName = user.name ? user.name.split(' ')[0] : user.email.split('@')[0];
-  document.getElementById('uName').textContent = firstName;
-  document.getElementById('uDropName').textContent = user.name || firstName;
-  document.getElementById('uDropEmail').textContent = user.email;
-  document.getElementById('uInitial').textContent = (user.name || user.email).charAt(0).toUpperCase();
-}
-
-function clearSession() {
-  localStorage.removeItem('level_user');
-  document.getElementById('authBtns').style.display = 'flex';
-  document.getElementById('userPill').classList.remove('show');
-  document.getElementById('uDrop').classList.remove('open');
-}
-
-function signOut() { clearSession(); }
-function toggleUserDrop() { document.getElementById('uDrop').classList.toggle('open'); }
-document.addEventListener('click', function(e) {
-  if (!document.getElementById('userWrap').contains(e.target)) document.getElementById('uDrop').classList.remove('open');
-  if (!document.getElementById('products-nav-wrap').contains(e.target)) document.getElementById('products-nav-menu').style.display = 'none';
-});
-
-function openAuth(mode) {
-  authMode = mode || 'signin';
-  document.getElementById('authTitle').textContent = mode === 'signup' ? 'Create your Level account' : 'Sign in to Level';
-  document.getElementById('authSubtitle').textContent = mode === 'signup' ? 'Join founders building with Level' : 'Access your account and dashboard';
-  document.getElementById('authSubmitBtn').textContent = mode === 'signup' ? 'Create Account' : 'Sign In';
-  document.getElementById('nameRow').style.display = mode === 'signup' ? 'block' : 'none';
-  document.getElementById('authSwitch').innerHTML = mode === 'signup'
-    ? 'Already have an account? <a onclick="switchAuthMode()">Sign in</a>'
-    : "Don't have an account? <a onclick=\"switchAuthMode()\">Sign up free</a>";
-  document.getElementById('authError').classList.remove('show');
-  document.getElementById('authSuccess').classList.remove('show');
-  document.getElementById('authEmail').value = '';
-  document.getElementById('authPass').value = '';
-  if (document.getElementById('authName')) document.getElementById('authName').value = '';
-  document.getElementById('authOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeAuth() {
-  document.getElementById('authOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function switchAuthMode() { openAuth(authMode === 'signin' ? 'signup' : 'signin'); }
-document.getElementById('authClose').addEventListener('click', closeAuth);
-document.getElementById('authOverlay').addEventListener('click', function(e) { if (e.target === this) closeAuth(); });
-
-function handleEmailAuth() {
-  var errEl = document.getElementById('authError');
-  errEl.classList.remove('show');
-  var email = document.getElementById('authEmail').value.trim();
-  var pass = document.getElementById('authPass').value;
-  var name = authMode === 'signup' ? (document.getElementById('authName').value.trim() || '') : '';
-  if (!email || !pass) { errEl.textContent = 'Please enter your email and password.'; errEl.classList.add('show'); return; }
-  if (!email.includes('@')) { errEl.textContent = 'Please enter a valid email address.'; errEl.classList.add('show'); return; }
-  if (pass.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('show'); return; }
-  var accounts = JSON.parse(localStorage.getItem('level_accounts') || '{}');
-  if (authMode === 'signup') {
-    if (accounts[email]) { errEl.textContent = 'An account with this email already exists.'; errEl.classList.add('show'); return; }
-    var newUser = { name: name || email.split('@')[0], email: email, password: btoa(pass), picture: '', createdAt: new Date().toISOString(), approved: false, balance: 0 };
-    accounts[email] = newUser;
-    localStorage.setItem('level_accounts', JSON.stringify(accounts));
-    saveAndLogin({ name: newUser.name, email: newUser.email, picture: '' });
-  } else {
-    var account = accounts[email];
-    if (!account) { errEl.textContent = 'No account found with this email.'; errEl.classList.add('show'); return; }
-    if (btoa(pass) !== account.password) { errEl.textContent = 'Incorrect password.'; errEl.classList.add('show'); return; }
-    saveAndLogin({ name: account.name, email: account.email, picture: account.picture || '' });
-  }
-}
-
 var pBtn = document.getElementById('products-nav-btn');
 var pMenu = document.getElementById('products-nav-menu');
 pBtn.addEventListener('click', function(e) { e.stopPropagation(); pMenu.style.display = pMenu.style.display === 'block' ? 'none' : 'block'; });
