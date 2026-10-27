@@ -67,11 +67,11 @@ body { background: #07060B; font-family: 'Work Sans', sans-serif; }
         <div class="q-label">First, let's get your info</div>
         <div class="q-sub">We'll use this to set up your Level account.</div>
         <label class="f-label">Full Name</label>
-        <input class="f-input" id="appName" type="text" placeholder="Your full name" required>
+        <input class="f-input" id="appName" maxlength="200" type="text" placeholder="Your full name" required>
         <label class="f-label">Email Address</label>
         <input class="f-input" id="appEmail" type="email" placeholder="you@company.com" required>
         <label class="f-label">Business Name</label>
-        <input class="f-input" id="appBiz" type="text" placeholder="Your business name" required>
+        <input class="f-input" id="appBiz" maxlength="200" type="text" placeholder="Your business name" required>
         <div id="step1Error" style="color:#ef4444;font-size:13px;margin-bottom:10px;display:none;"></div>
         <button class="btn-submit" onclick="goStep2()">Continue →</button>
       </div>
@@ -80,7 +80,7 @@ body { background: #07060B; font-family: 'Work Sans', sans-serif; }
       <div class="step" id="step2">
         <div class="progress-bar"><div class="progress-fill" style="width:60%;"></div></div>
         <div class="q-label">Do you have at least $1.00 in your business bank account?</div>
-        <div class="q-sub">This is the only financial requirement to qualify for a Level Card 1 and receive your free $1 grant.</div>
+        <div class="q-sub">Tell us about your business. Your response will be included in your application for review.</div><p id="submitError" role="alert" style="color:#ef4444;"></p>
         <button class="choice-btn" onclick="handleAnswer('yes')">
           <div class="choice-icon">
             <svg width="18" height="18" fill="none" stroke="#5C1FF0" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
@@ -101,93 +101,18 @@ body { background: #07060B; font-family: 'Work Sans', sans-serif; }
         </button>
       </div>
 
-      <!-- STEP 3: Approved -->
-      <div class="step" id="stepApproved">
-        <div class="approved-wrap">
-          <div class="approved-icon">
-            <svg width="36" height="36" fill="none" stroke="#5C1FF0" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <div class="approved-title">You're Approved! 🎉</div>
-          <div class="approved-sub">Welcome to Level Card 1. You've been approved and your free grant has been added to your account. No repayment required — this is free money for you.</div>
-          <div class="grant-box">
-            <div class="grant-amount">$1.00</div>
-            <div class="grant-label">Level Grant — Free Money, No Payback</div>
-            <div class="grant-note">Exclusively for Level Card 1 members · No repayment required</div>
-          </div>
-          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px;font-size:13px;color:#15803d;margin-bottom:20px;text-align:left;">
-            <strong>Level Loan</strong> — Launching Soon! Stay tuned, we're bringing low-cost loans exclusively for Level Card members.
-          </div>
-          <a href="dashboard.html" class="btn-dashboard">Go to My Dashboard →</a>
-        </div>
-      </div>
-
-      <!-- STEP 4: Rejected -->
-      <div class="step" id="stepRejected">
-        <div class="approved-wrap">
-          <div class="rejected-icon">
-            <svg width="36" height="36" fill="none" stroke="#ef4444" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <div class="rejected-title">Not Qualified Yet</div>
-          <div class="rejected-sub">We're sorry — to qualify for a Level Card 1 you need at least $1.00 in your business bank account. We've sent you an email with more details.</div>
-          <div class="email-sent-box">
-            <strong>📧 Email sent to: <span id="rejectedEmail"></span></strong><br>
-            <span style="color:#6b7280;">Subject: Level Card Application — Funding Requirement Not Met</span><br><br>
-            Your email will explain that you don't have enough funding to qualify yet for a Level Card. Once you have $1.00 in your business account, you're welcome to apply again!
-          </div>
-          <a href="index.html" class="back-btn">← Back to Home</a>
-        </div>
-      </div>
+      <div class="step" id="stepSubmitted"><div class="approved-wrap">
+        <div class="approved-title">Application received</div>
+        <div class="approved-sub">Your application has been saved to your Level account. You can check its status in your dashboard. Submission does not confirm approval or a grant payment.</div>
+        <a href="dashboard.html" class="btn-dashboard">Go to my dashboard →</a>
+      </div></div>
 
     </div>
   </div>
 </div>
 
-<script>
-var appData = {};
-
-function goStep2() {
-  var name = document.getElementById('appName').value.trim();
-  var email = document.getElementById('appEmail').value.trim();
-  var biz = document.getElementById('appBiz').value.trim();
-  var errEl = document.getElementById('step1Error');
-  if (!name || !email || !biz) { errEl.textContent = 'Please fill in all fields.'; errEl.style.display = 'block'; return; }
-  if (!email.includes('@')) { errEl.textContent = 'Please enter a valid email address.'; errEl.style.display = 'block'; return; }
-  errEl.style.display = 'none';
-  appData = { name: name, email: email, business: biz };
-  showStep('step2');
-}
-
-function handleAnswer(answer) {
-  if (answer === 'yes') {
-    // Save approved status to localStorage
-    var accounts = JSON.parse(localStorage.getItem('level_accounts') || '{}');
-    var userKey = appData.email;
-    if (!accounts[userKey]) {
-      accounts[userKey] = { name: appData.name, email: appData.email, business: appData.business, approved: true, balance: 0, grant: 1.00, createdAt: new Date().toISOString() };
-    } else {
-      accounts[userKey].approved = true;
-      accounts[userKey].grant = 1.00;
-    }
-    localStorage.setItem('level_accounts', JSON.stringify(accounts));
-    // Also save current session
-    localStorage.setItem('level_user', JSON.stringify({ name: appData.name, email: appData.email, picture: '', approved: true, grant: 1.00, balance: 0 }));
-    showStep('stepApproved');
-  } else {
-    document.getElementById('rejectedEmail').textContent = appData.email;
-    // Save rejection
-    var accounts = JSON.parse(localStorage.getItem('level_accounts') || '{}');
-    if (!accounts[appData.email]) {
-      accounts[appData.email] = { name: appData.name, email: appData.email, business: appData.business, approved: false, balance: 0, createdAt: new Date().toISOString() };
-    }
-    localStorage.setItem('level_accounts', JSON.stringify(accounts));
-    showStep('stepRejected');
-  }
-}
-
-function showStep(id) {
-  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
-}
-</script>
+<script src="assets/js/vendor/supabase-2.49.1.js"></script>
+<script src="assets/js/level-client.js"></script>
+<script src="assets/js/level-apply.js"></script>
 </body>
 </html>
