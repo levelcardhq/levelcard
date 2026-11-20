@@ -101,6 +101,7 @@
         }
       });
       sb.auth.onAuthStateChange(function (event, session) {
+        if (event === 'SIGNED_OUT') { localStorage.removeItem('level_user'); }
         if (session && session.user) {
           var p = profileFromUser(session.user);
           localStorage.setItem('level_user', JSON.stringify(p));
@@ -115,8 +116,9 @@
 
     var origClearSession = window.clearSession;
     window.clearSession = function () {
-      if (backendOn) { logEvent('sign_out', {}); sb.auth.signOut(); }
+      var done = backendOn ? (logEvent('sign_out', {}), sb.auth.signOut()) : Promise.resolve();
       origClearSession();
+      return done;
     };
 
     // Google button inside the existing modal, styled to match it.
@@ -206,8 +208,12 @@
       });
     },
     signOut: function () {
-      if (backendOn) { logEvent('sign_out', {}); sb.auth.signOut(); }
-      localStorage.removeItem('level_user');
+      var done = backendOn ? (logEvent('sign_out', {}), sb.auth.signOut()) : Promise.resolve();
+      return done.then(function () {
+        localStorage.removeItem('level_user');
+      }, function () {
+        localStorage.removeItem('level_user');
+      });
     }
   };
 })();
