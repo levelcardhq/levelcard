@@ -189,5 +189,18 @@ function showStep(id) {
   document.getElementById(id).classList.add('active');
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/level-config.js"></script>
+<script src="assets/js/level-supabase.js"></script>
+<script>
+var _goStep2 = goStep2;
+goStep2 = function() { _goStep2(); if (appData && appData.email) LevelBackend.logEvent("apply_step1_done", {}); };
+var _handleAnswer = handleAnswer;
+handleAnswer = function(ans) {
+  LevelBackend.saveRow("applications", { name: appData.name || "", email: appData.email || "", business: appData.business || "", qualified: ans === "yes", grant_amount: ans === "yes" ? 1.00 : 0 });
+  LevelBackend.logEvent(ans === "yes" ? "apply_approved" : "apply_rejected", {});
+  _handleAnswer(ans);
+};
+</script>
 </body>
 </html>

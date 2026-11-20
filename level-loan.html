@@ -78,8 +78,8 @@
 <header class="bg-header">
     <div class="flex items-center justify-between p-4 container mx-auto">
         <div class="flex items-center gap-2">
-            <a href="index.html"><img src="assets/images/logo.svg" alt="Logo" class="h-10"></a>
-            <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#fff;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:2px 8px;border-radius:999px;text-transform:uppercase;opacity:0.92;font-family:'Work Sans',sans-serif;">Beta</span>
+            <a href="index.html"><img src="assets/images/logo.svg" alt="Logo" class="h-10 hdr-logo"></a>
+            <span class="beta-badge" style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#fff;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:2px 8px;border-radius:999px;text-transform:uppercase;opacity:0.92;font-family:'Work Sans',sans-serif;">Beta</span>
         </div>
         <nav class="hidden md:flex space-x-10">
             <div class="relative" id="products-nav-wrap">
@@ -221,5 +221,8 @@
         productsNavMenu.style.display = 'none';
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/level-config.js"></script>
+<script src="assets/js/level-supabase.js"></script>
 </body>
 </html>

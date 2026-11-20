@@ -24,6 +24,14 @@
       .btn-signin:hover{border-color:rgba(255,255,255,0.45);background:rgba(255,255,255,0.05);}
       .btn-signup-hdr{background:#5C1FF0;color:#fff;border:none;border-radius:30px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Work Sans',sans-serif;transition:background .2s;}
       .btn-signup-hdr:hover{background:#4c10d4;}
+      /* Small-phone header fixes (iPhone 8 / 375px and down): smaller logo + badge, no crowding */
+      @media (max-width: 640px){
+        header .flex.items-center.justify-between{padding:10px 12px !important;}
+        header .hdr-logo{height:26px !important;width:auto !important;}
+        header .beta-badge{font-size:0.52rem !important;padding:1px 6px !important;letter-spacing:0.05em !important;}
+        header .btn-signin,header .btn-signup-hdr{padding:6px 12px !important;font-size:12px !important;}
+        header #authBtns{gap:6px !important;}
+      }
       .user-pill{display:none;align-items:center;gap:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:5px 14px 5px 5px;cursor:pointer;position:relative;}
       .user-pill.show{display:flex;}
       .u-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;}
@@ -141,8 +149,8 @@
 	<header class="bg-header wow fadeInDown">
 		<div class="flex items-center justify-between p-4 container mx-auto">
 		    <div class="flex items-center gap-2">
-		        <img src="assets/images/logo.svg" alt="Logo" class="h-10">
-		        <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#fff;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:2px 8px;border-radius:999px;text-transform:uppercase;opacity:0.92;font-family:'Work Sans',sans-serif;">Beta</span>
+		        <img src="assets/images/logo.svg" alt="Logo" class="h-10 hdr-logo">
+		        <span class="beta-badge" style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;color:#fff;background:linear-gradient(135deg,#5C1FF0,#8B5CF6);padding:2px 8px;border-radius:999px;text-transform:uppercase;opacity:0.92;font-family:'Work Sans',sans-serif;">Beta</span>
 		    </div>
 		    <nav class="hidden md:flex space-x-8" style="align-items:center;">
 		        <div style="position:relative;" id="products-nav-wrap">
@@ -352,7 +360,7 @@
     	<div class="container mx-auto">
         	<div class="w-full bottom-fotter">
 			    <div class="footer_box text-center">
-			        <p class="text-white font-18 font-medium uppercase mt-5 circularstd">COPYRIGHT @ 2026 LEVEL</p>
+			        <p class="text-white font-18 font-medium uppercase mt-5 circularstd">COPYRIGHT @ 2026 LEVEL <p class="text-white font-18 font-medium uppercase mt-5 circularstd">COPYRIGHT @ 2026 LEVEL</p>nbsp;·<p class="text-white font-18 font-medium uppercase mt-5 circularstd">COPYRIGHT @ 2026 LEVEL</p>nbsp; <a href="privacy.html" style="color:#8B5CF6;text-transform:uppercase;">Privacy</a></p>
 			    </div>
 			</div>
 		</div>
@@ -510,5 +518,8 @@ document.getElementById('contactForm').addEventListener('submit', async function
   } catch { btn.textContent='Send Message'; btn.disabled=false; }
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/level-config.js"></script>
+<script src="assets/js/level-supabase.js"></script>
 </body>
 </html>

@@ -169,3 +169,12 @@ div#mobile-menu {
 	}
 }
 
+
+/* Small-phone header fixes (iPhone 8 / 375px and down): smaller logo + badge, no crowding */
+@media (max-width: 640px){
+  header .flex.items-center.justify-between{padding:10px 12px !important;}
+  header .hdr-logo{height:26px !important;width:auto !important;}
+  header .beta-badge{font-size:0.52rem !important;padding:1px 6px !important;letter-spacing:0.05em !important;}
+  header .btn-signin,header .btn-signup-hdr{padding:6px 12px !important;font-size:12px !important;}
+  header #authBtns{gap:6px !important;}
+}

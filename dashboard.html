@@ -110,7 +110,7 @@ body{font-family:'Work Sans',sans-serif;background:#f5f6fa;color:#111827;}
     <div class="sb-logo">
       <div class="sb-logo-inner">
         <span class="sb-logo-text">LEVEL</span>
-        <span class="sb-beta">Beta</span>
+        <span class="beta-badge" class="sb-beta">Beta</span>
       </div>
     </div>
     <div class="sb-nav">
@@ -266,34 +266,29 @@ body{font-family:'Work Sans',sans-serif;background:#f5f6fa;color:#111827;}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="assets/js/level-config.js"></script>
+<script src="assets/js/level-supabase.js"></script>
 <script>
-// Check login
+function signOut() {
+  if (window.LevelBackend) LevelBackend.signOut();
+  window.location.href = 'index.html';
+}
 window.addEventListener('load', function() {
-  var saved = localStorage.getItem('level_user');
-  if (!saved) { window.location.href = 'index.html'; return; }
-  try {
-    var user = JSON.parse(saved);
-    var firstName = user.name ? user.name.split(' ')[0] : 'there';
-
-    // Greeting
+  LevelBackend.user(function(user) {
+    if (!user) { window.location.href = 'index.html'; return; }
+    var firstName = user.name ? user.name.split(' ')[0] : (user.email || '').split('@')[0] || 'there';
     var h = new Date().getHours();
     var greeting = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
     document.getElementById('greetingText').textContent = greeting + ', ' + firstName;
-
-    // Date
-    var now = new Date();
-    document.getElementById('dateText').textContent = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
-    // Sidebar
-    document.getElementById('sbAvatar').textContent = (user.name || user.email).charAt(0).toUpperCase();
+    document.getElementById('dateText').textContent = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    document.getElementById('sbAvatar').textContent = (user.name || user.email || 'L').charAt(0).toUpperCase();
     document.getElementById('sbName').textContent = firstName;
-
-    // Check approved status from accounts
+    LevelBackend.logEvent('dashboard_view', {});
     var accounts = JSON.parse(localStorage.getItem('level_accounts') || '{}');
     var account = accounts[user.email] || {};
     var approved = account.approved || user.approved || false;
     var grant = account.grant || user.grant || 0;
-
     if (approved) {
       document.getElementById('grantCard').style.display = 'flex';
       document.getElementById('grantVal').textContent = '$' + parseFloat(grant).toFixed(2);
@@ -302,15 +297,8 @@ window.addEventListener('load', function() {
     } else {
       document.getElementById('notApprovedBanner').style.display = 'flex';
     }
-  } catch(e) {
-    window.location.href = 'index.html';
-  }
+  });
 });
-
-function signOut() {
-  localStorage.removeItem('level_user');
-  window.location.href = 'index.html';
-}
 </script>
 </body>
 </html>
