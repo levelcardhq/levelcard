@@ -169,24 +169,11 @@ div#mobile-menu {
 	}
 	.content-images.relative.w-50{
 		display: block;
-		height: 310px;
-		margin-top: 24px;
-		overflow: hidden;
+		height: 225px;
+		margin-top: 50px;
 	}
 	.content-images .card-img{
-		width: 210px;
-	}
-	.content-images .card1{
-		top: 0;
-		left: 6%;
-	}
-	.content-images .card2{
-		top: 95px;
-		left: 0;
-	}
-	.content-images .card3{
-		top: 170px;
-		left: 36%;
+		width: 66%;
 	}
 }
 
