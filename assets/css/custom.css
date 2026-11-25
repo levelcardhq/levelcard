@@ -191,3 +191,14 @@ div#mobile-menu {
 @media (max-width: 640px){
   .trusted-bar > div{flex-direction:column !important;align-items:flex-start !important;gap:10px !important;}
 }
+
+
+/* Phone: show cards between Join Waitlist and the app-store buttons */
+@media (max-width: 600px){
+  .flex.HOME{display:flex !important;flex-direction:column !important;}
+  .flex.HOME .banner-box{display:contents !important;}
+  .flex.HOME .banner-box > *{order:1;}
+  .flex.HOME .content-images.relative.w-50{order:2;margin-top:40px !important;margin-bottom:10px;}
+  .flex.HOME .banner-box > .apps{order:3;margin-top:0 !important;}
+  .flex.HOME .banner-box > h1,.flex.HOME .banner-box > p,.flex.HOME .banner-box > button{align-self:flex-start;}
+}
