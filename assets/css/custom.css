@@ -186,3 +186,8 @@ div#mobile-menu {
   header .btn-signin,header .btn-signup-hdr{padding:6px 12px !important;font-size:12px !important;}
   header #authBtns{gap:6px !important;}
 }
+
+/* Phone: put "Trusted by" label above the scrolling names so they cannot overlap */
+@media (max-width: 640px){
+  .trusted-bar > div{flex-direction:column !important;align-items:flex-start !important;gap:10px !important;}
+}
